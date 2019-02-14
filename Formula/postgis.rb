@@ -19,7 +19,7 @@ class Postgis < Formula
       depends_on "libtool" => :build
     end
   
-    option "with-protobuf-c", "Build with protobuf-c to enable Geobuf and Mapbox Vector Tile support"
+    # option "with-protobuf-c", "Build with protobuf-c to enable Geobuf and Mapbox Vector Tile support"
 
     depends_on "gpp" => :build
     depends_on "pkg-config" => :build
@@ -30,7 +30,7 @@ class Postgis < Formula
     depends_on "postgresql"
     depends_on "proj"
     depends_on "sfcgal" # for advanced 2D/3D functions
-    depends_on "protobuf-c" => :optional
+    depends_on "protobuf-c" => :build
   
     def install
       ENV.deparallelize
@@ -46,7 +46,7 @@ class Postgis < Formula
         "--disable-nls",
       ]
   
-      args << "--with-protobufdir=#{Formula["protobuf-c"].opt_bin}" if build.with? "protobuf-c"
+      args << "--with-protobufdir=#{Formula["protobuf-c"].opt_bin}" #if build.with? "protobuf-c"
 
       system "./autogen.sh" if build.head?
       system "./configure", *args
